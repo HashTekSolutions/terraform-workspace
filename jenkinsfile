@@ -1,0 +1,74 @@
+pipeline {
+  agent any
+  
+  environment {
+    AWS_REGION = 'ap-south-1'
+  }
+  
+  stages {
+    stage('Checkout') {
+  steps {
+    script {
+      def workspace = "/var/lib/jenkins/workspace/workspace-terraform/${params.ENVIRONMENT}"
+      dir(workspace) {
+        checkout([
+          $class: 'GitSCM',
+          branches: [[name: '*/main']],
+          userRemoteConfigs: [[url: 'https://github.com/saimanohar9966/terraform-workspace.git']]
+        ])
+      }
+    }
+  }
+}
+
+    
+ stage('Create Terraform Workspace') {
+  steps {
+    script {
+      def workspace = "${params.ENVIRONMENT}"
+      dir(workspace) {
+        // Initialize Terraform and configure the backend
+        sh "rm -rf .terraform .terraform.lock.hcl"
+        sh "terraform init -no-color"
+        
+        // Check if the Terraform workspace exists
+        def workspaceExists = sh(script: "terraform workspace list -no-color | grep -wq $workspace", returnStatus: true)
+        
+        if (workspaceExists != 0) {
+          // Create the Terraform workspace if it doesn't exist
+          sh "terraform workspace new $workspace -no-color"
+        }
+      }
+    }
+  }
+}
+
+    stage('Terraform Plan') {
+  steps {
+    script {
+      def workspace = "${params.ENVIRONMENT}"
+      dir(workspace) {
+        // Initialize Terraform and download plugins
+        sh "terraform init -no-color"
+        
+        // Execute Terraform plan for the selected workspace
+        sh "terraform plan -no-color"
+      }
+    }
+  }
+}
+
+    
+    stage('Terraform Apply') {
+      steps {
+        script {
+          def workspace = "${params.ENVIRONMENT}"
+          dir(workspace) {
+            // Apply the changes and create the S3 bucket for the selected workspace
+            sh "terraform apply -no-color"
+          }
+        }
+      }
+    }
+  }
+}
