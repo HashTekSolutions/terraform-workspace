@@ -6,9 +6,12 @@ resource "aws_instance" "example" {
 user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
-              sudo yum install -y httpd.x86_64
-              sudo systemctl start httpd.service
-              sudo systemctl enable httpd.service
+              sudo yum install nginx -y
+              sudo systemctl start nginx
+              sudo systemctl enable nginx
+              sudo chmod 777 /usr/share/nginx/html/index.html
+              echo '<h1>HashTek solution!</h1>' >> /usr/share/nginx/html/index.html
+              sudo systemctl restart nginx
               EOF
 
   tags = {
