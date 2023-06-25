@@ -48,7 +48,7 @@ pipeline {
         stage('Checkout & Environment Prep') {
             steps {
                 script {
-                    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+                    ansiColor('xterm') {
                         withCredentials([
                             [ $class: 'AmazonWebServicesCredentialsBinding',
                                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
