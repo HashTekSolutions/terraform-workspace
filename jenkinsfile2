@@ -55,6 +55,7 @@ pipeline {
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                                 credentialsId: 'AWSCred',
                             ]])
+                            sh 'terraform init'
                         /*{
                             try {
                                 echo "Setting up Terraform"
