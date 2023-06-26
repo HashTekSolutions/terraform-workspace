@@ -20,7 +20,7 @@ pipeline {
         string (
             name: 'PROFILE',
             defaultValue: 'tfuser',
-            description: 'Optional. Target aws profile defaults to devuser'
+            description: 'Optional. Target aws profile defaults to tfuser'
         )
         string (
             name: 'EMAIL',
@@ -33,7 +33,7 @@ pipeline {
         AWS_DEFAULT_REGION = "${params.AWS_REGION}"
         PROFILE = "${params.PROFILE}"
         ACTION = "${params.ACTION}"
-        PROJECT_DIR = "."
+        PROJECT_DIR = "terraform/main"
         WORKSPACE = "${env.WORKSPACE}"
     }
 
