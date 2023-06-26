@@ -1,8 +1,9 @@
 def tfCmd(String command, String options = '') {
     ACCESS = "export AWS_PROFILE=${PROFILE} && export TF_ENV_profile=${PROFILE}"
     sh ("cd ${WORKSPACE}/${PROJECT_DIR} && ${ACCESS} && terraform init")
-    sh ("cd ${WORKSPACE} && ${ACCESS} && terraform init")
+    //sh ("cd ${WORKSPACE} && ${ACCESS} && terraform init") //base
     sh ("cd ${WORKSPACE}/${PROJECT_DIR} && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
+    sh ("echo ${command} ${options}") 
     sh ("cd ${WORKSPACE}/${PROJECT_DIR} && ${ACCESS} && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
 }
 
@@ -195,5 +196,27 @@ pipeline {
             }
         }   
     }
-}
 
+    post
+    {
+			always{
+			emailext (
+			body: """
+				<p>${ENV_NAME} - Jenkins Pipeline ${ACTION} Summary</p>
+				<p>Jenkins url: <a href='${env.BUILD_URL}/>link</a></p>
+				<p>Pipeline Blueocean： <a href='${env.JENKINS_URL}blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${env.BUILD_NUMBER}/pipeline'>${env.JOB_NAME}(pipeline page)</a></p>
+			${env.JENKINS_URL}blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${env.BUILD_NUMBER}/pipeline
+				<ul>
+				<li> Branch built: '${env.BRANCH_NAME}' </li>
+				<li> ACTION: $ACTION</li>
+				<li> REGION: ${AWS_REGION}</li>
+				</ul>
+				""",
+				recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+				to: "${EMAIL}",
+				subject: "[${ENV_NAME}] - ${env.JOB_NAME}-${env.BUILD_NUMBER} [$AWS_REGION][$ACTION]",
+				attachLog: true
+				)
+        }
+    }
+}
