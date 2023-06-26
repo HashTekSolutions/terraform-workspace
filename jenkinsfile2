@@ -1,4 +1,4 @@
-pipeline {
+`pipeline {
     agent any
 
     parameters {
@@ -69,7 +69,7 @@ pipeline {
                                     /usr/local/bin/aws configure --profile ${PROFILE} set region ${AWS_REGION}
                                     export AWS_PROFILE=${PROFILE}
                                     export TF_ENV_profile=${PROFILE}
-                                    mkdir -p /home/jenkins/.terraform.d/plugins/linux_amd64
+                                    mkdir -p .terraform.d/plugins/linux_amd64
                                     terraform init
                                 """)
                                 tfCmd('version')
