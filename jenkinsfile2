@@ -33,7 +33,7 @@ pipeline {
         AWS_DEFAULT_REGION = "${params.AWS_REGION}"
         PROFILE = "${params.PROFILE}"
         ACTION = "${params.ACTION}"
-        PROJECT_DIR = "terraform/main"
+        PROJECT_DIR = "."
         WORKSPACE = "${env.WORKSPACE}"
     }
 
@@ -90,7 +90,7 @@ pipeline {
                 }
             }
             steps {
-                dir("${PROJECT_DIR") {
+                dir("${PROJECT_DIR}") {
                     script {
                         wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
                             withCredentials([
