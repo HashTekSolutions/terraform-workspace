@@ -19,7 +19,7 @@ pipeline {
         )
         string (
             name: 'PROFILE',
-            defaultValue: 'devuser',
+            defaultValue: 'tfuser',
             description: 'Optional. Target aws profile defaults to devuser'
         )
         string (
