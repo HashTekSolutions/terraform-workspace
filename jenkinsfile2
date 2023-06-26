@@ -197,7 +197,7 @@ pipeline {
         }   
     }
 
-    post
+    /*post
     {
 			always{
 			emailext (
@@ -218,5 +218,5 @@ pipeline {
 				attachLog: true
 				)
         }
-    }
+    }*/
 }
