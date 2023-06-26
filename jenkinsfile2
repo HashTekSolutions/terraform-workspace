@@ -1,3 +1,11 @@
+def tfCmd(String command, String options = '') {
+    ACCESS = "export AWS_PROFILE=${PROFILE} && export TF_ENV_profile=${PROFILE}"
+    sh ("cd ${WORKSPACE}/${PROJECT_DIR} && ${ACCESS} && terraform init")
+    sh ("cd ${WORKSPACE} && ${ACCESS} && terraform init")
+    sh ("cd ${WORKSPACE}/${PROJECT_DIR} && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
+    sh ("cd ${WORKSPACE}/${PROJECT_DIR} && ${ACCESS} && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
+}
+
 pipeline {
     agent any
 
@@ -70,7 +78,7 @@ pipeline {
                                     export AWS_PROFILE=${PROFILE}
                                     export TF_ENV_profile=${PROFILE}
                                     mkdir -p .terraform.d/plugins/linux_amd64
-                                    terraform init
+                                    //terraform init
                                 """)
                                 tfCmd('version')
                             } catch (ex) {
@@ -189,10 +197,3 @@ pipeline {
     }
 }
 
-def tfCmd(String command, String options = '') {
-    ACCESS = "export AWS_PROFILE=${PROFILE} && export TF_ENV_profile=${PROFILE}"
-    sh ("cd ${WORKSPACE}/${PROJECT_DIR} && ${ACCESS} && terraform init")
-    sh ("cd ${WORKSPACE} && ${ACCESS} && terraform init")
-    sh ("cd ${WORKSPACE}/${PROJECT_DIR} && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
-    sh ("cd ${WORKSPACE}/${PROJECT_DIR} && ${ACCESS} && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
-}
