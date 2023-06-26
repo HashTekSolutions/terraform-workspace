@@ -55,8 +55,8 @@ pipeline {
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                                 credentialsId: 'AWSCred',
                             ]])
-                            sh 'terraform init'
-                        /*{
+                           
+                        {
                             try {
                                 echo "Setting up Terraform"
                                 def tfHome = tool name: 'terraform-2.12.07',
@@ -70,13 +70,14 @@ pipeline {
                                     export AWS_PROFILE=${PROFILE}
                                     export TF_ENV_profile=${PROFILE}
                                     mkdir -p /home/jenkins/.terraform.d/plugins/linux_amd64
+                                    terraform init
                                 """)
                                 tfCmd('version')
                             } catch (ex) {
                                 echo 'Err: Incremental Build failed with Error: ' + ex.toString()
                                 currentBuild.result = "UNSTABLE"
                             }
-                        }*/
+                        }
                     }
                 }
             }
