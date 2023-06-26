@@ -33,7 +33,7 @@ pipeline {
         AWS_DEFAULT_REGION = "${params.AWS_REGION}"
         PROFILE = "${params.PROFILE}"
         ACTION = "${params.ACTION}"
-        PROJECT_DIR = "terraform/main"
+        // PROJECT_DIR = "terraform/main"
         WORKSPACE = "${env.WORKSPACE}"
     }
 
