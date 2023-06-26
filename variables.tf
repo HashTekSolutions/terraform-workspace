@@ -10,7 +10,7 @@ variable "sg_name" {
 
 variable "bucket_name" {
   type = string
-  default = "sai-manu-workspace-2406"
+  default = "hashtek-workspace-2406"
 }
 
 variable "keypair" {
