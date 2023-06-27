@@ -9,7 +9,7 @@ user_data = <<-EOF
               sudo yum install nginx -y
               sudo systemctl start nginx
               sudo systemctl enable nginx
-              sudo chmod 755 /usr/share/nginx/html/index.html
+              sudo chmod 777 /usr/share/nginx/html/index.html
               echo '<h1>HashTek solution!</h1>' >> /usr/share/nginx/html/index.html
               sudo systemctl restart nginx
               EOF
