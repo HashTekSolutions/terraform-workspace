@@ -23,3 +23,8 @@ variable "secretmanager" {
   default = "keyfiles"
   
 }
+
+variable "ri"{
+  type = string
+  default = ${random_integer.ri.result}
+}
