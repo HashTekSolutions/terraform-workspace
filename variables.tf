@@ -24,7 +24,3 @@ variable "secretmanager" {
   
 }
 
-variable "ri"{
-  type = string
-  default = ${random_integer.ri.result}
-}
