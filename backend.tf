@@ -3,6 +3,8 @@ provider "aws" {
   profile = "tfuser"
 }
 
+provider "random" {}
+
 terraform {
   backend "s3" {
     
