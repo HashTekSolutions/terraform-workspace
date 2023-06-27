@@ -1,15 +1,15 @@
-
 resource "tls_private_key" "ec2_ssh" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
+
 resource "aws_key_pair" "deployer" {
-  key_name   = "${terraform.workspace}-${var.keypair}"
+  key_name   = "${terraform.workspace}-${var.keypair}-${random_integer.ri.result}"
   public_key = tls_private_key.ec2_ssh.public_key_openssh
 }
 
 resource "aws_secretsmanager_secret" "key_pair_secret" {
-  name = "${terraform.workspace}-${var.secretmanager}"
+  name = "${terraform.workspace}-${var.secretmanager}-${random_integer.ri.result}"
 }
 
 resource "aws_secretsmanager_secret_version" "key_pair_secret_version" {
