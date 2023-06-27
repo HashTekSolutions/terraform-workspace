@@ -5,6 +5,11 @@ provider "aws" {
 
 provider "random" {}
 
+resource "random_integer" "ri" {
+  min = 10
+  max = 99
+}
+
 terraform {
   backend "s3" {
     
