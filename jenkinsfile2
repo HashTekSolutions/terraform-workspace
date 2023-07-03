@@ -213,7 +213,7 @@ pipeline {
 				""",
 				recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
 				to: "${EMAIL}",
-				subject: "[${ENV_NAME}] - ${env.JOB_NAME}-${env.BUILD_NUMBER} [${var.region}][$ACTION]",
+				subject: "[${ENV_NAME}] - ${env.JOB_NAME}-${env.BUILD_NUMBER} ${var.region}[$ACTION]",
 				attachLog: true
 				)
         }
