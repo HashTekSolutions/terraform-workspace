@@ -10,11 +10,11 @@ pipeline {
     agent any
 
     parameters {
-        /*choice (
+        choice (
             name: 'AWS_REGION',
             choices: ['ap-south-1','us-west-1', 'us-west-2'],
             description: 'Pick A regions defaults to ap-south-1'
-        )*/
+        )
         string (
             name: 'ENV_NAME',
             defaultValue: 'dev',
@@ -38,7 +38,7 @@ pipeline {
     }
 
     environment {
-        AWS_DEFAULT_REGION = "${var.region}"
+        AWS_DEFAULT_REGION = "${params.AWS_REGION}"
         PROFILE = "${params.PROFILE}"
         ACTION = "${params.ACTION}"
         PROJECT_DIR = "."
@@ -70,11 +70,11 @@ pipeline {
                                 def tfHome = tool name: 'terraform-1.5.1',
                                     type: 'org.jenkinsci.plugins.terraform.TerraformInstallation'
                                 env.PATH = "${tfHome}:${env.PATH}"
-                                currentBuild.displayName += "[${var.region}]::[$ACTION]"
+                                currentBuild.displayName += "[$params.AWS_REGION]::[$ACTION]"
                                 sh("""
                                     /usr/local/bin/aws configure --profile ${PROFILE} set aws_access_key_id ${AWS_ACCESS_KEY_ID}
                                     /usr/local/bin/aws configure --profile ${PROFILE} set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
-                                    /usr/local/bin/aws configure --profile ${PROFILE} set region ${var.region}
+                                    /usr/local/bin/aws configure --profile ${PROFILE} set region ${params.AWS_REGION}
                                     export AWS_PROFILE=${PROFILE}
                                     export TF_ENV_profile=${PROFILE}
                                     mkdir -p .terraform.d/plugins/linux_amd64
@@ -208,12 +208,12 @@ pipeline {
 				<ul>
 				<li> Branch built: '${env.BRANCH_NAME}' </li>
 				<li> ACTION: $ACTION</li>
-				<li> REGION: ${var.region}</li>
+				<li> REGION: ${params.AWS_REGION}</li>
 				</ul>
 				""",
 				recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
 				to: "${EMAIL}",
-				subject: "[${ENV_NAME}] - ${env.JOB_NAME}-${env.BUILD_NUMBER} ${var.region}[$ACTION]",
+				subject: "[${ENV_NAME}] - ${env.JOB_NAME}-${env.BUILD_NUMBER} ${params.AWS_REGION}[$ACTION]",
 				attachLog: true
 				)
         }
