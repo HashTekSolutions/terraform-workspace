@@ -6,8 +6,8 @@ provider "aws" {
 provider "random" {}
 
 resource "random_integer" "ri" {
-  min = 10
-  max = 99
+  min = 100
+  max = 999
 }
 
 terraform {
