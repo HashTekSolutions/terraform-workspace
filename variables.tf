@@ -26,5 +26,6 @@ variable "secretmanager" {
 variable "instance_type" {
   type        = string
   description = "The type of EC2 instance"
+  default = "t2.micro"
 }
 
