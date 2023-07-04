@@ -108,7 +108,7 @@ pipeline {
                                 ]])
                             {
                                 try {
-                                    tfCmd('plan', '-var-file="${TFVARS_FILE}" -detailed-exitcode -out=tfplan')
+                                    tfCmd('plan', '-detailed-exitcode -out=tfplan')
                                 } catch (ex) {
                                     if (ex == 2 && "${ACTION}" == 'apply') {
                                         currentBuild.result = "UNSTABLE"
