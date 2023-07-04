@@ -20,12 +20,11 @@ variable "keypair" {
 
 variable "secretmanager" {
   type = string
-  default = "keyfiles"
-  
+  default = "keyfiles"  
 }
 
 variable "instance_type" {
-  description = "The type of EC2 instance"
   type        = string
+  description = "The type of EC2 instance"
 }
 
