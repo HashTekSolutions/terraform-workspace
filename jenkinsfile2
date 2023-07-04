@@ -77,8 +77,7 @@ pipeline {
                                     /usr/local/bin/aws configure --profile ${PROFILE} set region ${params.AWS_REGION}
                                     export AWS_PROFILE=${PROFILE}
                                     export TF_ENV_profile=${PROFILE}
-                                    mkdir -p .terraform.d/plugins/linux_amd64
-                                    //terraform init
+                                    mkdir -p .terraform.d/plugins/linux_amd64                                    
                                 """)
                                 tfCmd('version')
                             } catch (ex) {
