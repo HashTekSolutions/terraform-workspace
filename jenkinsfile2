@@ -1,5 +1,5 @@
 def tfCmd(String command, String options = '') {
-    ACCESS = "export AWS_PROFILE=${PROFILE} && export TF_ENV_profile=${PROFILE} && TF_VAR_tfvars_file=${ENV_NAME}.${TFVARS_FILE}"
+    ACCESS = "export AWS_PROFILE=${PROFILE} && export TF_ENV_profile=${PROFILE} && TF_VAR_tfvars_file=${ENV_NAME}.tfvars"
     sh ("cd ${WORKSPACE}/${PROJECT_DIR} && ${ACCESS} && terraform init")
     sh ("cd ${WORKSPACE}/${PROJECT_DIR} && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
     sh ("echo ${command} ${options}") 
