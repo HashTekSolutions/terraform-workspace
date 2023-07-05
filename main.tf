@@ -10,7 +10,7 @@ user_data = <<-EOF
               sudo systemctl start nginx
               sudo systemctl enable nginx
               sudo chmod 777 /usr/share/nginx/html/index.html
-              echo '<h1> Welcome to HashTek solutions! </h1>' > /usr/share/nginx/html/index.html
+              echo 'Welcome to HashTek solutions!' > /usr/share/nginx/html/index.html
               if [ "${terraform.workspace}" == "dev" ]; then
                 echo '<h2>This is the DEV server.</h2>' >> /usr/share/nginx/html/index.html
               elif [ "${terraform.workspace}" == "qa" ]; then
