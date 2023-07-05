@@ -10,7 +10,16 @@ user_data = <<-EOF
               sudo systemctl start nginx
               sudo systemctl enable nginx
               sudo chmod 777 /usr/share/nginx/html/index.html
-              echo '<h1>HashTek solution!</h1>' >> /usr/share/nginx/html/index.html
+              echo '<h1>HashTek solutions!</h1>' >> /usr/share/nginx/html/index.html
+              if [ "${terraform.workspace}" == "dev" ]; then
+                echo '<h2>This is the dev server.</h2>' >> /usr/share/nginx/html/index.html
+              elif [ "${terraform.workspace}" == "qa" ]; then
+                echo '<h2>This is the qa server.</h2>' >> /usr/share/nginx/html/index.html
+              elif [ "${terraform.workspace}" == "prod" ]; then
+                echo '<h2>This is the prod server.</h2>' >> /usr/share/nginx/html/index.html
+              else
+                echo '<h2>This is a different server.</h2>' >> /usr/share/nginx/html/index.html
+               fi
               sudo systemctl restart nginx
               EOF
 
