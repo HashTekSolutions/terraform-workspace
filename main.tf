@@ -12,11 +12,11 @@ user_data = <<-EOF
               sudo chmod 777 /usr/share/nginx/html/index.html
               echo '<h1> Welcome to HashTek solutions! </h1>' > /usr/share/nginx/html/index.html
               if [ "${terraform.workspace}" == "dev" ]; then
-                echo '<h2>This is the dev server.</h2>' >> /usr/share/nginx/html/index.html
+                echo '<h2>This is the DEV server.</h2>' >> /usr/share/nginx/html/index.html
               elif [ "${terraform.workspace}" == "qa" ]; then
-                echo '<h2>This is the qa server.</h2>' >> /usr/share/nginx/html/index.html
+                echo '<h2>This is the QA server.</h2>' >> /usr/share/nginx/html/index.html
               elif [ "${terraform.workspace}" == "prod" ]; then
-                echo '<h2>This is the prod server.</h2>' >> /usr/share/nginx/html/index.html
+                echo '<h2>This is the PROD server.</h2>' >> /usr/share/nginx/html/index.html
               else
                 echo '<h2>This is a different server.</h2>' >> /usr/share/nginx/html/index.html
                fi
