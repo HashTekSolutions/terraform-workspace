@@ -3,7 +3,7 @@ resource "aws_instance" "example" {
   instance_type          =  var.instance_type
   key_name               =  aws_key_pair.deployer.key_name # Replace with your key pair name
   vpc_security_group_ids = [aws_security_group.sg_web.id]
-user_data = <<-EOF
+  user_data              = <<-EOF
               #!/bin/bash
               sudo yum update -y
               sudo yum install nginx -y
