@@ -108,7 +108,7 @@ pipeline {
                                 ]])
                             {
                                 try {
-                                    tfCmd('plan', '-detailed-exitcode')
+                                    tfCmd('plan', '-detailed-exitcode -out=tfplan')
                                 } catch (ex) {
                                     if (ex == 2 && "${ACTION}" == 'apply') {
                                         currentBuild.result = "UNSTABLE"
@@ -142,7 +142,7 @@ pipeline {
                                 ]])
                             {
                                 try {
-                                    tfCmd('apply', '-var-file="${TFVARS_FILE}"')
+                                    tfCmd('apply', '-var-file="${TFSVARS_FILE}"', '-auto-approve')
                                 } catch (ex) {
                                     currentBuild.result = "UNSTABLE"
                                 }
