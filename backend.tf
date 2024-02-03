@@ -13,7 +13,7 @@ resource "random_integer" "ri" {
 terraform {
   backend "s3" {
     
-    bucket  = "hashtek-terraform-workspace" # Replace with your S3 bucket name
+    bucket  = "terraform-workspace-123" # Replace with your S3 bucket name
     key     = "statefile/terraform.tfstate"
     region  = "ap-south-1"
   }
