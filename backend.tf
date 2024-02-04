@@ -1,5 +1,5 @@
 provider "aws" {
-  profile = "tfuser"
+  profile = "default"
   region  = "ap-south-1"
 }
 
