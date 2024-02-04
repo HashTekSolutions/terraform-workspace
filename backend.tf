@@ -1,6 +1,6 @@
 provider "aws" {
-  region  = "ap-south-1"
   profile = "tfuser"
+  region  = "ap-south-1"
 }
 
 provider "random" {}
